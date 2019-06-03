@@ -27,9 +27,19 @@ namespace OpenKh.Common.Archives
             public ulong OriginalSize;                  // UInt40 (5 Bytes)
             public ulong StartOffset;                   // UInt40 (5 Bytes)
             public string FileName;
+            public uint Index;
+
+            public override string ToString()
+            {
+                return $"Index: {Index}, " +
+                        $"Name: {FileName}, \t" +
+                        $"OriginalSize: {OriginalSize}, \t" +
+                        $"StartOffset: {StartOffset}, \t" +
+                        $"BlockListStart: {BlockListStart}";
+            }
         }
 
-        private readonly uint MagicCode = 0x50534152;
+        private readonly uint MagicCode = 0x50534152;   //PSAR
         private BigEndianBinaryReader reader;
 
         public Psarc(Stream stream)
@@ -58,7 +68,8 @@ namespace OpenKh.Common.Archives
                     MD5 = reader.ReadBytes(16),
                     BlockListStart = reader.ReadUInt32(),
                     OriginalSize = reader.ReadUInt40(),
-                    StartOffset = reader.ReadUInt40()
+                    StartOffset = reader.ReadUInt40(),
+                    Index = i
                 });
             }
 
@@ -75,7 +86,7 @@ namespace OpenKh.Common.Archives
             }
         }
 
-        private byte[] DecompressFile(int index)
+        public byte[] DecompressFile(int index)
         {
             if (index > (TocEntries - 1))
                 return new byte[0];
