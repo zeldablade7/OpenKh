@@ -80,6 +80,12 @@ namespace OpenKh.Common.Archives
                 filenames = new List<string>(Encoding.Default.GetString(manifest).Split('\0'));
             filenames.Insert(0, "manifest.txt");
 
+            if (Toc.Count != TocEntries)
+                throw new InvalidDataException("TOC Count does not meet expected value");
+
+            if (Toc.Count != filenames.Count)
+                throw new InvalidDataException("TOC Count and Manifest filenames count don't match.");
+
             for (int i = 0; i < TocEntries; i++)
             {
                 Toc[i].FileName = filenames[i];
