@@ -16,9 +16,9 @@ All the values are Little Endian in the PS2/PS4 Versions, while they are Big End
 
 | Offset | Variable Type | Description |
 |--------|---------------|-------------|
-| 0 | char[4] | The identifier of the file (Should be always 0x01524142) |
-| 4 | uint32_t | The sub-file count of the BAR File. |
-| 8 | uint32_t | Always zero. Padding for a lookup address at runtime. 
+| 0 | int32_t | The identifier of the file (Should be always 0x01524142) |
+| 4 | int32_t | The sub-file count of the BAR File. |
+| 8 | int32_t | Must be 0. Once that the game engine loads the BAR file in memory, this will contains the pointer to the BAR header.gd
 | 12 | int32_t | Unknown. Often 0. Some mset files set it to 1 or 2.
 
 ### BAR Entry
