@@ -1,6 +1,8 @@
 ﻿using OpenKh.Kh2;
 using OpenKh.Common;
 using Xunit;
+using System.IO;
+using System.Linq;
 
 namespace OpenKh.Tests.kh2
 {
@@ -23,6 +25,41 @@ namespace OpenKh.Tests.kh2
                 var ai = new Ai(stream);
                 Assert.Equal(0x43, ai.ProgramCounter);
             }));
+
+        [Theory]
+        [InlineData(0x0A, 0x12)]
+        [InlineData(0x03, 0x43)]
+        [InlineData(0x1234, 0)]
+        public void GetProgramCorrectly(int programId, int expectedProgramCounter) =>
+            Common.FileOpenRead(FilePath, myStream => myStream.Using(stream =>
+            {
+                var ai = new Ai(stream);
+                Assert.Equal(expectedProgramCounter, ai.GetProgram(programId));
+            }));
+
+        [Fact]
+        public void TestOpcode1()
+        {
+            var ai = CreateAi(0x01, 0x00, 0x00, 0x00);
+            var prevPc = ai.ProgramCounter;
+
+            ai.Tick();
+
+            Assert.Equal(prevPc + 2, ai.ProgramCounter);
+        }
+
+        [Fact]
+        public void TestOpcode9_Switch2()
+        {
+            var ai = CreateAi(0x0089);
+            ai.StackPointer08.Push(2);
+            ai.StackPointer08.Push(1234);
+
+            ai.Tick();
+
+            Assert.Empty(ai.StackPointer08);
+            Assert.Equal(1234, ai.ProgramCounter);
+        }
 
         [Fact]
         public void ExecuteScript() =>
@@ -69,23 +106,37 @@ namespace OpenKh.Tests.kh2
                 Assert.True(ai.Return);
             }));
 
-        [Theory]
-        [InlineData(0x0A, 0x12)]
-        [InlineData(0x03, 0x43)]
-        [InlineData(0x1234, 0)]
-        public void GetProgramCorrectly(int programId, int expectedProgramCounter) =>
-            Common.FileOpenRead(FilePath, myStream => myStream.Using(stream =>
-            {
-                var ai = new Ai(stream);
-                Assert.Equal(expectedProgramCounter, ai.GetProgram(programId));
-            }));
-
         private void Expect(Ai ai, int expectedPc, int expectedOpcode)
         {
             Assert.Equal(expectedPc, ai.ProgramCounter);
             Assert.False(ai.Return);
             ai.Tick();
             Assert.Equal(expectedOpcode, ai.LastOpcode);
+        }
+
+        private Ai CreateAi(params byte[] program)
+        {
+            var head = new byte[]
+            {
+                0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41,
+                0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x00
+            };
+            var unknown = new byte[]
+            {
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+            };
+            var functions = new byte[]
+            {
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+            };
+
+            return new Ai(new MemoryStream(head.Concat(unknown).Concat(functions).Concat(program).ToArray()))
+            {
+                ProgramCounter = (unknown.Length + functions.Length) / 2
+            };
         }
     }
 }
