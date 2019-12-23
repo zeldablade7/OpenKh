@@ -75,6 +75,13 @@ namespace OpenKh.Audio
             wav = Decode(stream);
         }
 
+        public Vag(Stream stream, byte channels, int sampleRate)
+        {
+            SampleRate = sampleRate;
+            Channels = channels;
+            wav = Decode(stream);
+        }
+
         private Stream Decode(Stream stream)
         {
             var wavstream = Channels == 2 ? GetTwoChannelWavStream(stream) : GetOneChannelWavStream(stream);
