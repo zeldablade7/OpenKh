@@ -31,7 +31,7 @@ namespace OpenKh.Audio
         public int LoopStartSample { get; }
         public int LoopEndSample { get; }
 
-        public Stream wav { get; }
+        public Stream WaveStream { get; }
 
         public Vag(Stream stream)
         {
@@ -72,14 +72,14 @@ namespace OpenKh.Audio
             StreamName = Encoding.UTF8.GetString(reader.ReadBytes(0x10)).Replace("\0", string.Empty);
 
             reader.BaseStream.Position = 48 + 16 * Channels;
-            wav = Decode(stream);
+            WaveStream = Decode(stream);
         }
 
         public Vag(Stream stream, byte channels, int sampleRate)
         {
             SampleRate = sampleRate;
             Channels = channels;
-            wav = Decode(stream);
+            WaveStream = Decode(stream);
         }
 
         private Stream Decode(Stream stream)
