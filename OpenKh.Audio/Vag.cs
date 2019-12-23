@@ -3,7 +3,6 @@
 //https://gitlab.com/kenjiuno/khkh_xldM/blob/master/khiiMapv/ParseSD.cs
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using Xe.IO;
 
 namespace OpenKh.Audio
@@ -76,15 +75,14 @@ namespace OpenKh.Audio
 
         private Stream Decode(Stream stream)
         {
-            var bytelist = new List<ushort>();
-            if (Channels == 1)
-                bytelist = Decode1Channel(stream);
-            else if (Channels == 2)
-                bytelist = Decode2Channel(stream);
+            var bytelist = Channels == 2 ? Decode2Channel(stream) : Decode1Channel(stream);
 
-            var ms = AudioHelpers.BuildWavHeader(bytelist.Count, Channels, SampleRate);
-            BinaryWriter writer = new BinaryWriter(ms);
-            bytelist.ForEach(d => writer.Write(d));
+            var ms = AudioHelpers.BuildWavHeader((int)bytelist.Length, Channels, SampleRate);
+            //BinaryWriter writer = new BinaryWriter(ms);
+            //bytelist.ForEach(d => writer.Write(d));
+
+            ms.Position = ms.Length;
+            bytelist.CopyTo(ms);
 
             return ms;
         }
@@ -107,9 +105,10 @@ namespace OpenKh.Audio
             return inout;
         }
 
-        private List<ushort> Decode1Channel(Stream stream)
+        private Stream Decode1Channel(Stream stream)
         {
-            List<ushort> bytelist = new List<ushort>();
+            MemoryStream outStream = new MemoryStream();
+            BinaryWriter writer = new BinaryWriter(outStream);
             using (BinaryReader reader = new BinaryReader(stream))
             {
                 double num1 = 0.0;
@@ -130,18 +129,19 @@ namespace OpenKh.Audio
                     {
                         int num6 = buffer[i];
                         num2 = DecodeBlockA(num6, num1, num2, shift_factor, predict_nr);
-                        bytelist.Add((ushort)(num2 + 0.5));
+                        writer.Write((ushort)(num2 + 0.5));
 
                         num1 = DecodeBlockB(num6, num2, num1, shift_factor, predict_nr);
-                        bytelist.Add((ushort)(num1 + 0.5));
+                        writer.Write((ushort)(num1 + 0.5));
                     }
                 }
             }
-            return bytelist;
+            return outStream;
         }
-        private List<ushort> Decode2Channel(Stream stream)
+        private Stream Decode2Channel(Stream stream)
         {
-            List<ushort> bytelist = new List<ushort>();
+            MemoryStream outStream = new MemoryStream();
+            BinaryWriter writer = new BinaryWriter(outStream);
             using (BinaryReader reader = new BinaryReader(stream))
             {
                 double num1 = 0.0;
@@ -170,20 +170,20 @@ namespace OpenKh.Audio
                         int num7 = buffer[i + 16];
 
                         num2 = DecodeBlockA(num6, num1, num2, shift_factor1, predict_nr1);
-                        bytelist.Add((ushort)(num2 + 0.5));
+                        writer.Write((ushort)(num2 + 0.5));
 
                         num4 = DecodeBlockA(num7, num3, num4, shift_factor2, predict_nr2);
-                        bytelist.Add((ushort)(num4 + 0.5));
+                        writer.Write((ushort)(num4 + 0.5));
 
                         num1 = DecodeBlockB(num6, num2, num1, shift_factor1, predict_nr1);
-                        bytelist.Add((ushort)(num1 + 0.5));
+                        writer.Write((ushort)(num1 + 0.5));
 
                         num3 = DecodeBlockB(num7, num4, num3, shift_factor2, predict_nr2);
-                        bytelist.Add((ushort)(num3 + 0.5));
+                        writer.Write((ushort)(num3 + 0.5));
                     }
                 }
             }
-            return bytelist;
+            return outStream;
         }
 
     }
