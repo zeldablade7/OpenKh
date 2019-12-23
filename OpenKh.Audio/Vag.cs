@@ -80,6 +80,7 @@ namespace OpenKh.Audio
             var wavstream = Channels == 2 ? GetTwoChannelWavStream(stream) : GetOneChannelWavStream(stream);
             var wavheader = AudioHelpers.BuildWavHeader((int)wavstream.Length, Channels, SampleRate);
             wavheader.Position = wavheader.Length;
+            wavstream.Position = 0;
             wavstream.CopyTo(wavheader);
 
             return wavheader;
