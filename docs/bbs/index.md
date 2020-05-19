@@ -4,4 +4,11 @@
 
 * [Worlds](worlds.md)
 * [Archive format](bbsa.md)
+* [ARC format](arc.md)
+* [Animation Container](pam.md)
+* [CTD text format](ctd.md)
+* [OLO spawner format](olo.md)
 * [Events](events.md)
+* Other files
+    * [font.arc, fonten.arc](font)
+
