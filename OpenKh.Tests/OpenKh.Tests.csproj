@@ -79,6 +79,9 @@
     <None Update="kh2\res\bons_fm.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="kh2\res\cmd.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="kh2\res\eh_l.layd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
