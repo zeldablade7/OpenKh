@@ -17,5 +17,9 @@ namespace OpenKh.Game.Entities
         public Vector3 Position { get; set; }
         public Vector3 Rotation { get; set; }
         public Vector3 Scaling { get; set; }
+
+        public void Update(float deltaTime)
+        {
+        }
     }
 }

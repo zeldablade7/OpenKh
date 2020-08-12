@@ -13,6 +13,7 @@ using System.Linq;
 using OpenKh.Kh2.Models;
 using OpenKh.Game.Entities;
 using OpenKh.Kh2.Ard;
+using OpenKh.Engine.Physics;
 
 namespace OpenKh.Game.States
 {
@@ -49,6 +50,8 @@ namespace OpenKh.Game.States
         private bool _enableCameraMovement = true;
         private List<ObjectEntity> _objectEntities = new List<ObjectEntity>();
         private List<BobEntity> _bobEntities = new List<BobEntity>();
+        private readonly Kh2PhysicsProcessor _mapCollision = new Kh2PhysicsProcessor();
+        private bool _testCollide = false;
 
         public void Initialize(StateInitDesc initDesc)
         {
@@ -88,12 +91,27 @@ namespace OpenKh.Game.States
                 if (_input.Left) _camera.CameraRotationYawPitchRoll += new Vector3(1 * speed, 0, 0);
                 if (_input.Right) _camera.CameraRotationYawPitchRoll -= new Vector3(1 * speed, 0, 0);
             }
+
+            foreach (var entity in _bobEntities)
+                entity.Update((float)deltaTimes.DeltaTime);
+            foreach (var entity in _objectEntities)
+            {
+                entity.Update((float)deltaTimes.DeltaTime);
+                var normal = _mapCollision.DoesCollide(new System.Numerics.Vector3(entity.Position.X, entity.Position.Y, entity.Position.Z));
+                _testCollide = normal != System.Numerics.Vector3.Zero;
+                if (_testCollide)
+                {
+                    entity.Position -= entity.Velocity * new Vector3(normal.X, normal.Y, normal.Z);
+                    entity.Velocity = Vector3.Zero;
+                }
+            }
         }
 
         public void Draw(DeltaTimes deltaTimes)
         {
             _camera.AspectRatio = _graphics.PreferredBackBufferWidth / (float)_graphics.PreferredBackBufferHeight;
-
+            if (_testCollide)
+                _graphics.GraphicsDevice.Clear(Color.OrangeRed);
 
             _graphics.GraphicsDevice.RasterizerState = new RasterizerState()
             {
@@ -297,6 +315,10 @@ namespace OpenKh.Game.States
             _bobEntities = entries.ForEntry("out", Bar.EntryType.BobDescriptor, BobDescriptor.Read)?
                 .Select(x => new BobEntity(x))?.ToList() ?? new List<BobEntity>();
 
+            var mapCoctEntry = entries.FirstOrDefault(x => x.Type == Bar.EntryType.MapCollision);
+            if (mapCoctEntry != null)
+                _mapCollision.Load(Coct.Read(mapCoctEntry.Stream));
+
             var bobModels = entries.ForEntries("BOB", Bar.EntryType.Model, Mdlx.Read).ToList();
             var bobTextures = entries.ForEntries("BOB", Bar.EntryType.ModelTexture, ModelTexture.Read).ToList();
 
@@ -317,9 +339,9 @@ namespace OpenKh.Game.States
                 fileName = $"ard/{Constants.WorldIds[worldIndex]}{placeIndex:D02}.ard";
 
             var entries = _dataContent.FileOpen(fileName).Using(Bar.Read);
-            RunSpawnScript(entries, "map", 0x06);
-            RunSpawnScript(entries, "btl", 0x01);
-            RunSpawnScript(entries, "evt", 0x16);
+            RunSpawnScript(entries, "map", 0x00);
+            RunSpawnScript(entries, "btl", 0x00);
+            RunSpawnScript(entries, "evt", 0x00);
         }
 
         private void RunSpawnScript(IEnumerable<Bar.Entry> barEntries, string spawnScriptName, int programId)

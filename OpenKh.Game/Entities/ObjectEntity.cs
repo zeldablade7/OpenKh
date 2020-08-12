@@ -6,13 +6,15 @@ using OpenKh.Game.Models;
 using OpenKh.Kh2;
 using OpenKh.Kh2.Ard;
 using OpenKh.Kh2.Extensions;
-using System;
 using System.Linq;
 
 namespace OpenKh.Game.Entities
 {
     public class ObjectEntity : IEntity
     {
+        private const float TerminalFallingVelocity = 32.0f;
+        private const float Gravity = 49.0f;
+
         public ObjectEntity(Kernel kernel, int objectId)
         {
             Kernel = kernel;
@@ -35,6 +37,17 @@ namespace OpenKh.Game.Entities
 
         public Vector3 Scaling { get; set; }
 
+        public Vector3 Velocity { get; set; }
+
+        public void Update(float deltaTime)
+        {
+            Velocity += new Vector3(0, Gravity * deltaTime, 0);
+            if (Velocity.Y > TerminalFallingVelocity)
+                Velocity = new Vector3(Velocity.X, TerminalFallingVelocity, Velocity.Z);
+
+            Position -= Velocity;
+        }
+
         public void LoadMesh(GraphicsDevice graphics)
         {
             var objEntry = Kernel.ObjEntries.FirstOrDefault(x => x.ObjectId == ObjectId);
@@ -56,7 +69,7 @@ namespace OpenKh.Game.Entities
         public static ObjectEntity FromSpawnPoint(Kernel kernel, SpawnPoint.Entity spawnPoint) =>
             new ObjectEntity(kernel, spawnPoint.ObjectId)
             {
-                Position = new Vector3(spawnPoint.PositionX, -spawnPoint.PositionY, -spawnPoint.PositionZ),
+                Position = new Vector3(spawnPoint.PositionX, 500, -spawnPoint.PositionZ),
                 Rotation = new Vector3(spawnPoint.RotationX, spawnPoint.RotationY, spawnPoint.RotationZ),
             };
     }

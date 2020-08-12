@@ -7,6 +7,8 @@ namespace OpenKh.Game.Entities
         Vector3 Position { get; }
         Vector3 Rotation { get; }
         Vector3 Scaling { get; }
+
+        void Update(float deltaTime);
     }
 
     public static class EntityExtensions
