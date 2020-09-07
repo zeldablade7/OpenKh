@@ -72,7 +72,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenKh.Bbs", "OpenKh.Bbs\Op
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenKh.Command.Bbsa", "OpenKh.Command.Bbsa\OpenKh.Command.Bbsa.csproj", "{D62EEF15-D847-4422-B5DC-3505037BFA8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenKh.Tools.BbsEventTableEditor", "OpenKh.Tools.BbsEventTableEditor\OpenKh.Tools.BbsEventTableEditor.csproj", "{6B85D492-8683-4D76-83FA-FFBBB43DC701}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenKh.Tools.BbsEventTableEditor", "OpenKh.Tools.BbsEventTableEditor\OpenKh.Tools.BbsEventTableEditor.csproj", "{6B85D492-8683-4D76-83FA-FFBBB43DC701}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
