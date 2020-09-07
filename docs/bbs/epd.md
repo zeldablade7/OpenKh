@@ -26,8 +26,14 @@ EPD probably stands for Entity Parameter Data and contains all the stats related
 | 20     | float  | Darkness Damage Multiplier
 | 24     | float  | Non-Elemental Damage Multiplier
 
-### Animation Parameters
+### Animation List
 
 | Offset | Type  | Description
 |--------|-------|------------
-| 00     | string[]  | 
+| 00     | string[]  | Animation List
+
+### Other Parameters
+
+| Offset | Type  | Description
+|--------|-------|------------
+| 00     | short  | Damage Ceiling
