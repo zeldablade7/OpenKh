@@ -12,10 +12,10 @@ Fields marked with `optional` mean that such fields may not be included in the f
 
 | Offset | Type  | Description
 |--------|-------|------------
-| 00     | short | Entry index
-| 02     | short | unk2
-| 04     | short | unk3
-| 06     | short | unk4
+| 00     | short | Flag to load
+| 02     | short | unk2 
+| 04     | short | unk3 // Always 0x1
+| 06     | short | unk4 // Always 0x1
 | 08     | string | OLO substring to load. For example if vs01-b70_.olo, it stores b70_. Not null-terminated.
 | 12     | short | `optional` unk6
 | 14     | short | `optional` unk7
