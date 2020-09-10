@@ -16,8 +16,8 @@ EPD probably stands for Entity Parameter Data and contains all the stats related
 | 01     | byte  | 
 | 02     | byte  | 
 | 03     | byte  | 
-| 04     | float  | Max HP
-| 08     | unk  | 
+| 04     | float | Max HP
+| 08     | float | Experience Multiplier
 | 0C     | unk  | 
 | 10     | float  | Physical Damage Multiplier
 | 14     | float  | Fire Damage Multiplier
@@ -30,10 +30,32 @@ EPD probably stands for Entity Parameter Data and contains all the stats related
 
 | Offset | Type  | Description
 |--------|-------|------------
-| 00     | string[]  | Animation List
+| 00     | string[24]  | Animation List
 
 ### Other Parameters
 
 | Offset | Type  | Description
 |--------|-------|------------
 | 00     | short  | Damage Ceiling
+| 02     | short  | Damage Floor?
+| 04     | float  | 
+| 08     | int    | 
+| 0C     | int    | 
+| 10     | int    | 
+| 14     | int    | 
+| 18     | int    | 
+| 1C     | int    | 
+| 20     | int    | 
+| 24     | int    | 
+
+### Animation Parameters
+
+This structures repeats for as many animations need their parameters set.
+
+| Offset | Type  | Description
+|--------|-------|------------
+| 00     | float  | Hit Damage Multiplier
+| 04     | byte  | 
+| 05     | byte  | 
+| 06     | byte  | 
+| 07     | byte  | 
