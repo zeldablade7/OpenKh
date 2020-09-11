@@ -57,5 +57,5 @@ This structures repeats for as many animations need their parameters set.
 | 00     | float  | Hit Damage Multiplier
 | 04     | byte  | 
 | 05     | byte  | 
-| 06     | byte  | 
-| 07     | byte  | 
+| 06     | byte  | Guard State (O == 0x81) (X == 0x9) (/\ == 0x2)
+| 07     | byte  | unknown `Usually always 0x64`
