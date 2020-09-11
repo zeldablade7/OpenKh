@@ -55,7 +55,67 @@ This structures repeats for as many animations need their parameters set.
 | Offset | Type  | Description
 |--------|-------|------------
 | 00     | float  | Hit Damage Multiplier
-| 04     | byte  | 
-| 05     | byte  | 
+| 04     | byte  | Animation index link?
+| 05     | byte  | Status Ailment (0xC == Freeze) (0xD == Burn) (0xE == Confuse)
 | 06     | byte  | Guard State (O == 0x81) (X == 0x9) (/\ == 0x2)
 | 07     | byte  | unknown `Usually always 0x64`
+
+#### Status Ailment enum
+| Id | Ailment |
+|----|-------|
+| 0x01 | Small Damage
+| 0x02 | Big Damage
+| 0x03 | Blow Damage
+| 0x04 | Toss Damage
+| 0x05 | Beat Damage
+| 0x06 | Flick Damage
+| 0x07 | Poison
+| 0x08 | Slow
+| 0x09 | Stop
+| 0x0A | Bind
+| 0x0B | Stun
+| 0x0C | Freeze
+| 0x0D | Burn
+| 0x0E | Confu
+| 0x0F | Blind
+| 0x10 | Death
+| 0x11 | Kill
+| 0x12 | Capture
+| 0x13 | Magnet
+| 0x14 | Zero Gravity
+| 0x15 | Aero
+| 0x16 | Tornado
+| 0x17 | Degenerator
+| 0x18 | Without
+| 0x19 | Eat
+| 0x1A | Treasure Raid
+| 0x1B | Sleeping Death
+| 0x1C | Sleep
+| 0x1D | Magnet Munny
+| 0x1E | Magnet HP
+| 0x1F | Magnet Focus
+| 0x20 | Mini
+| 0x21 | Quake
+| 0x22 | Recover
+| 0x23 | Discommand
+| 0x24 | Disprize_M
+| 0x25 | Disprize_H
+| 0x26 | Disprize_F
+| 0x27 | Detone
+| 0x28 | GM_BLOW
+| 0x29 | Blast
+| 0x2A | Magnet Spiral
+| 0x2B | Glacial Arts
+| 0x2C | Transcendence
+| 0x2D | Vengeance
+| 0x2E | Magnet Breaker
+| 0x2F | Magic Impulse CF
+| 0x30 | Magic Impulse CFB
+| 0x31 | Magic Impulse CFBB
+| 0x32 | Rise Damage
+| 0x33 | Stumble
+| 0x34 | Mount
+| 0x35 | Imprisonment
+| 0x36 | Slow Stop
+| 0x37 | Gathering
+| 0x38 | Exhausted
