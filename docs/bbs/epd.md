@@ -57,7 +57,7 @@ This structures repeats for as many animations need their parameters set.
 | 00     | float  | Hit Damage Multiplier
 | 04     | byte  | Animation index link?
 | 05     | byte  | [Attack Kind](####Attack-Kind)
-| 06     | byte  | Guard State (O == 0x81) (X == 0x9) (/\ == 0x2)
+| 06     | byte  | [Guard State](####Guard-State)
 | 07     | byte  | unknown `Usually always 0x64`
 
 #### Attack Kind
@@ -119,3 +119,11 @@ This structures repeats for as many animations need their parameters set.
 | 0x36 | Slow Stop | Can result in Slow or Stop.
 | 0x37 | Gathering | Freezes character for a long time.
 | 0x38 | Exhausted | 1HP, No Focus, No D-Link, All Commands in cooldown.
+
+#### Guard State
+
+| Id | Kind | Description |
+|----|-------|-----------|
+| 0x02 | Half-Block | 
+| 0x09 | Unblockable | 
+| 0x81 | Blockable | 
