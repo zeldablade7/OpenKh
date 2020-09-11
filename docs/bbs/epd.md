@@ -83,8 +83,8 @@ This structures repeats for as many animations need their parameters set.
 | 0x12 | Capture
 | 0x13 | Magnet
 | 0x14 | Zero Gravity
-| 0x15 | Aero
-| 0x16 | Tornado
+| 0x15 | Aero (Fly in circles)
+| 0x16 | Tornado (Violent version of Aero)
 | 0x17 | Degenerator
 | 0x18 | Without
 | 0x19 | Eat
@@ -97,7 +97,7 @@ This structures repeats for as many animations need their parameters set.
 | 0x20 | Mini
 | 0x21 | Quake
 | 0x22 | Recover
-| 0x23 | Discommand
+| 0x23 | Discommand (Enemy attack won'tmake you budge)
 | 0x24 | Disprize_M
 | 0x25 | Disprize_H
 | 0x26 | Disprize_F
@@ -115,7 +115,7 @@ This structures repeats for as many animations need their parameters set.
 | 0x32 | Rise Damage
 | 0x33 | Stumble
 | 0x34 | Mount
-| 0x35 | Imprisonment
-| 0x36 | Slow Stop
-| 0x37 | Gathering
-| 0x38 | Exhausted
+| 0x35 | Imprisonment (Character position = Enemy position)
+| 0x36 | Slow Stop (Can result in Slow or Stop)
+| 0x37 | Gathering (Freezes character for a long time)
+| 0x38 | Exhausted (1HP, No Focus, No D-Link, All Commands in cooldown)
