@@ -56,8 +56,8 @@ This structures repeats for as many animations need their parameters set.
 |--------|-------|------------
 | 00     | float  | Hit Damage Multiplier
 | 04     | byte  | Animation index link?
-| 05     | byte  | [Attack Kind](####Attack-Kind)
-| 06     | byte  | [Guard State](####Guard-State)
+| 05     | byte  | [Attack Kind](###Attack-Kind)
+| 06     | byte  | [Guard State](###Guard-State)
 | 07     | byte  | unknown `Usually always 0x64`
 
 #### Attack Kind
