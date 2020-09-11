@@ -56,11 +56,11 @@ This structures repeats for as many animations need their parameters set.
 |--------|-------|------------
 | 00     | float  | Hit Damage Multiplier
 | 04     | byte  | Animation index link?
-| 05     | byte  | Status Ailment (0xC == Freeze) (0xD == Burn) (0xE == Confuse)
+| 05     | byte  | [Attack Kind](####Attack Kind)
 | 06     | byte  | Guard State (O == 0x81) (X == 0x9) (/\ == 0x2)
 | 07     | byte  | unknown `Usually always 0x64`
 
-#### Status Ailment enum
+#### Attack Kind
 | Id | Ailment |
 |----|-------|
 | 0x01 | Small Damage
