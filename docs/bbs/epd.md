@@ -94,10 +94,10 @@ This structures repeats for as many animations need their parameters set.
 | 0x1D | Magnet Munny | 
 | 0x1E | Magnet HP | 
 | 0x1F | Magnet Focus | 
-| 0x20 | Mini | 
+| 0x20 | Mini | Doesn't work on player.
 | 0x21 | Quake | 
 | 0x22 | Recover | 
-| 0x23 | Discommand | Enemy attack won't make you budge
+| 0x23 | Discommand | Doesn't work on player.
 | 0x24 | Disprize_M | 
 | 0x25 | Disprize_H | 
 | 0x26 | Disprize_F | 
