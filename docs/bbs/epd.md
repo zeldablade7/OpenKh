@@ -98,7 +98,7 @@ This structures repeats for as many animations need their parameters set.
 | 0x21 | Quake | 
 | 0x22 | Recover | 
 | 0x23 | Discommand | Doesn't work on player.
-| 0x24 | Disprize_M | 
+| 0x24 | Disprize_M | Blow away commands?
 | 0x25 | Disprize_H | 
 | 0x26 | Disprize_F | 
 | 0x27 | Detone | 
