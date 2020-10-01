@@ -16,7 +16,7 @@ EPD probably stands for Entity Parameter Data and contains all the stats related
 | 01     | byte  | 
 | 02     | byte  | 
 | 03     | byte  | 
-| 04     | float | Max HP
+| 04     | float | Max HP (Bosses) Health Multiplier (Regular enemies)
 | 08     | float | Experience Multiplier
 | 0C     | unk  | 
 | 10     | float  | Physical Damage Multiplier
