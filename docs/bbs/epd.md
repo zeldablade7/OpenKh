@@ -1,6 +1,14 @@
 # EPD Format
 EPD probably stands for Entity Parameter Data and contains all the stats related to the character such as HP or damage dealt by every move.
 
+The format consists on the following structures in order:  
+[Header](###Header)  
+[General Parameters](###General-Parameters)  
+[Animation List](###Animation-List)  
+[Other Parameters](###Other-Parameters)  
+[Animation Parameters](###Animation-Parameters)  
+[AI Parameters](###AI-Parameters)  
+
 ### Header
 
 | Offset | Type  | Description
