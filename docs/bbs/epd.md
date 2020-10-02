@@ -41,12 +41,12 @@ EPD probably stands for Entity Parameter Data and contains all the stats related
 | 04     | float  | 
 | 08     | int    | 
 | 0C     | int    | 
-| 10     | int    | 
-| 14     | int    | 
-| 18     | int    | 
-| 1C     | int    | 
-| 20     | int    | 
-| 24     | int    | 
+| 10     | int    | Number of [Animation Parameters](###Animation-Parameters).
+| 14     | int    | Size of all [Animation Parameters](###Animation-Parameters).
+| 18     | int    | unknown
+| 1C     | int    | Size of all [AI Parameters](###AI-Parameters).
+| 20     | int    | Number of [AI Parameters](###AI-Parameters).
+| 24     | int    | Size of all [AI Parameters](###AI-Parameters).
 
 ### Animation Parameters
 
@@ -59,6 +59,15 @@ This structures repeats for as many animations need their parameters set.
 | 05     | byte  | [Attack Kind](###Attack-Kind)
 | 06     | byte  | [Guard State](###Guard-State)
 | 07     | byte  | unknown `Usually always 0x64`
+
+### AI Parameters  
+
+This structure contains AI parameters that can be change the character's behavior.
+
+| Offset | Type  | Description
+|--------|-------|------------
+| 00     | char[0xC]  | Parameter Name
+| 0C     | float  | Parameter Value
 
 #### Attack Kind
 | Id | Kind | Description |
